@@ -7,28 +7,46 @@
 	
 	var server = restify.createServer();
 	
-	//1153/ARC/ADMJ Spring 2015
-	//1156/SCC/ACCT Summer 2015
-	server.get('/:semester/:college/:subject', function (req, res, next) {
+	//api/1153/ARC/ADMJ Spring 2015
+	//api/1156/SCC/ACCT Summer 2015
+	server.get('/api/:semester/:college/:subject', function (req, res, next) {
 		
 		requester.post(req.params, function (response) {
+			
+			var classes = [];
+			var college = '';
 					
 			$('#ctl00_cphMain_gvSearch tr', response.body).each(function (i, elem) {
+				
+//				if ($('td.GridCampus span', elem).length > 0)	{
+//					college = $('td.GridCampus span', elem)[0].children[0].data.trim();
+//				}
+
+				var c = { collegeId: req.params.college };
 
 				if ($('td.Subject div', elem).length > 0) {
-					console.dir($('td.Subject div', elem)[0].children[0].data.trim());
+					var subjects = $('td.Subject div', elem)[0].children[0].data.split('\r\n');
+					c.subject = {
+						code: subjects[1].trim(),
+						level: subjects[2].trim(),
+						type: subjects[3].trim()
+					};
 				}
 
 				if ($('td.Course div', elem).length > 0) {
-					console.dir($('td.Course div', elem)[1].children[0].data.trim());
+					c.name = $('td.Course div', elem)[0].children[1].children[0].data.trim();
+					
+					var href = $('td.Course div', elem)[0].children[1].attribs.href;
+					href = href.substring((href.indexOf('"') + 1), href.lastIndexOf('"'));
+					c.href = 'http://dcs.losrios.edu/' + href;			
 				}
 
-				if ($('td.GridCampus span', elem).length > 0)	{
-					console.dir($('td.GridCampus span', elem)[0].children[0].data.trim());
+				if (c.subject) {
+					classes.push(c);	
 				}
 			});
 			
-			res.send(200, "OK!");
+			res.send(200, { classes: classes });
 			return next();
 		});
 	});
