@@ -1,8 +1,13 @@
 {
   "name": "losrios-api",
-  "version": "0.0.0",
-  "description": "An API for accessing structured community college class data",
+  "version": "0.1.0",
+	"description": "An API for accessing structured Los Rios Community College class data",
   "main": "app.js",
+	"private": true,
+	"engines": {
+		"node": "0.10.x",
+		"npm": "1.2.x"
+	},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

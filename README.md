@@ -1,2 +1,2 @@
 # losrios-api
-An API for accessing structured community class data
+An API for accessing structured Los Rios Community College class data

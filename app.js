@@ -40,6 +40,18 @@
 					href = href.substring((href.indexOf('"') + 1), href.lastIndexOf('"'));
 					c.href = 'http://dcs.losrios.edu/' + href;			
 				}
+				
+				var classNbrCell = $('td.ClassNbr div', elem);
+				if (classNbrCell.length > 0) {
+					console.dir(classNbrCell[0].children[0]);
+					c.units = classNbrCell[1].children[0].data.trim();
+				}
+				
+				var statusCell = $('td.Status div', elem);
+				if (statusCell.length > 0) {
+					c.status = statusCell[0].children[0].data.trim();
+					c.waitlistInfo = statusCell[1].children[0].data.trim();
+				}
 
 				if (c.subject) {
 					classes.push(c);	
