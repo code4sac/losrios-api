@@ -24,8 +24,9 @@
 
 				var c = { collegeId: req.params.college };
 
-				if ($('td.Subject div', elem).length > 0) {
-					var subjects = $('td.Subject div', elem)[0].children[0].data.split('\r\n');
+				var subjectCell = $('td.Subject div', elem);
+				if (subjectCell.length > 0) {
+					var subjects = subjectCell[0].children[0].data.split('\r\n');
 					c.subject = {
 						code: subjects[1].trim(),
 						level: subjects[2].trim(),
@@ -33,24 +34,19 @@
 					};
 				}
 
-				if ($('td.Course div', elem).length > 0) {
-					c.name = $('td.Course div', elem)[0].children[1].children[0].data.trim();
+				var courseCell = $('td.Course div', elem);
+				if (courseCell.length > 0) {
+					c.name = courseCell[0].children[1].children[0].data.trim();
 					
-					var href = $('td.Course div', elem)[0].children[1].attribs.href;
+					var href = courseCell[0].children[1].attribs.href;
 					href = href.substring((href.indexOf('"') + 1), href.lastIndexOf('"'));
 					c.href = 'http://dcs.losrios.edu/' + href;			
 				}
-				
-				var classNbrCell = $('td.ClassNbr div', elem);
-				if (classNbrCell.length > 0) {
-					console.dir(classNbrCell[0].children[0]);
-					c.units = classNbrCell[1].children[0].data.trim();
-				}
-				
+							
 				var statusCell = $('td.Status div', elem);
 				if (statusCell.length > 0) {
 					c.status = statusCell[0].children[0].data.trim();
-					c.waitlistInfo = statusCell[1].children[0].data.trim();
+					c.waitlist = statusCell[1].children[0].data.trim();
 				}
 
 				if (c.subject) {
