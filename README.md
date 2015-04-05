@@ -1,5 +1,5 @@
 # losrios-api
-An API for accessing structured Los Rios Community College class data
+An API for accessing structured Los Rios Community College class data.
 
 ## Instructions
 
@@ -7,6 +7,8 @@ An API for accessing structured Los Rios Community College class data
 2. Navigate to `localhost:3000/api/1159/ARC/ACCT`
 
 This will return data for the Accounting classes being held at American River College during the Fall 2015 semester.
+
+If you are using a web browser to make requests to the API, I suggest installing an add-on, such as [JSONView](https://addons.mozilla.org/en-us/firefox/addon/jsonview/) for Firefox, to make reading the JSON easier.
 
 ## API Details
 
