@@ -5,8 +5,7 @@
   "main": "app.js",
 	"private": true,
 	"engines": {
-		"node": "0.10.x",
-		"npm": "1.2.x"
+		"node": "0.10.x"
 	},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
