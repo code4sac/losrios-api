@@ -47,6 +47,17 @@
 					href = href.substring((href.indexOf('"') + 1), href.lastIndexOf('"'));
 					c.href = 'http://dcs.losrios.edu/' + href;			
 				}
+				
+				var instructorCell = $('td.Instructor', elem);
+				if (instructorCell.length > 0) {
+					c.instructor = instructorCell[0].children[0].data.trim();
+				}
+				
+				var classNbrCell = $('td.ClassNbr div', elem);
+				if (classNbrCell.length > 0) {
+					c.id = classNbrCell[0].children[0].next.children[0].data.trim();
+					c.units = classNbrCell[1].children[0].data.replace('Units', '').trim();
+				}
 
 				var statusCell = $('td.Status div', elem);
 				if (statusCell.length > 0) {
