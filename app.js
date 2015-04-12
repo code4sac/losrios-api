@@ -2,15 +2,8 @@
 	'use strict';
 	
 	var restify = require('restify');
-	var $ = require('cheerio');
 	var requester = require('./requester.js');
-	
-	var colleges = {
-		'American River College': 'ARC',
-		'Cosumnes River College': 'CRC',
-		'Folsom Lake College': 'FLC',
-		'Sacramento City College': 'SCC'
-	};
+	var parser = require('./parser.js');
 	
 	var server = restify.createServer();
 	
@@ -20,53 +13,7 @@
 		
 		requester.post(req.params, function (response) {
 			
-			var classes = [];
-			var college = '';
-			var collegeId = '';
-					
-			$('#ctl00_cphMain_gvSearch tr', response.body).each(function (i, elem) {
-				
-				if ($('td.GridCampus span', elem).length > 0)	{
-					college = $('td.GridCampus span', elem)[0].children[0].data.trim();
-					collegeId = colleges[college];
-				} else {
-					var c = { 
-						college: {
-							id: collegeId,
-							name: college	
-						}
-					};
-
-					var subjectCell = $('td.Subject div', elem);
-					if (subjectCell.length > 0) {
-						var subjects = subjectCell[0].children[0].data.split('\r\n');
-						c.subject = {
-							code: subjects[1].trim(),
-							level: subjects[2].trim(),
-							type: subjects[3].trim()
-						};
-					}
-
-					var courseCell = $('td.Course div', elem);
-					if (courseCell.length > 0) {
-						c.name = courseCell[0].children[1].children[0].data.trim();
-
-						var href = courseCell[0].children[1].attribs.href;
-						href = href.substring((href.indexOf('"') + 1), href.lastIndexOf('"'));
-						c.href = 'http://dcs.losrios.edu/' + href;			
-					}
-
-					var statusCell = $('td.Status div', elem);
-					if (statusCell.length > 0) {
-						c.status = statusCell[0].children[0].data.trim();
-						c.waitlist = statusCell[1].children[0].data.trim();
-					}
-
-					if (c.subject) {
-						classes.push(c);	
-					}
-				}
-			});
+			var classes = parser.parseClasses(response.body);
 			
 			res.send(200, { classes: classes });
 			return next();
