@@ -53,6 +53,18 @@
 					c.instructor = instructorCell[0].children[0].data.trim();
 				}
 				
+				var daysCell = $('td.Days span', elem);
+				if (daysCell.length > 0) {
+					c.days = daysCell[0].children[0].data.trim();
+				}
+				
+				var datetimeCell = $('td.DateTime div', elem);
+				if (datetimeCell.length > 0) {
+					c.time = datetimeCell[0].children[0].next.children[0].data || "";
+					var dateParts = datetimeCell[1].children[0].data.split('\r\n');
+					c.dates = dateParts[1].trim() + ' - ' + dateParts[3].trim();
+				}
+				
 				var classNbrCell = $('td.ClassNbr div', elem);
 				if (classNbrCell.length > 0) {
 					c.id = classNbrCell[0].children[0].next.children[0].data.trim();
