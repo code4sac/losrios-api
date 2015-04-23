@@ -15,7 +15,7 @@
 		var classes = [];
 		var college = '';
 		var collegeId = '';
-
+		
 		$('#ctl00_cphMain_gvSearch tr', body).each(function (i, elem) {
 
 			if ($('td.GridCampus span', elem).length > 0)	{
@@ -26,7 +26,8 @@
 					college: {
 						id: collegeId,
 						name: college	
-					}
+					},
+					dateScraped: new Date()
 				};
 
 				var subjectCell = $('td.Subject div', elem);

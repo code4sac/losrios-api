@@ -1,8 +1,10 @@
 (function (database) {
-	"use strict";
+	'use strict';
 
 	var mongodb = require("mongodb");
-	var mongoUrl = process.env.MONGODB;
+	var env = require('./env.js');
+	
+	var mongoUrl = process.env.MONGODB || env.MONGODB;
 	var theDb = null;
 
 	database.getDb = function (next) {
@@ -13,14 +15,7 @@
 				if (err) {
 					next(err, null);
 				} else {
-					theDb = {
-						db: db,
-						tournaments: db.collection("tournaments"),
-						rounds: db.collection("rounds"),
-						games: db.collection("games"),
-						picks: db.collection("picks"),
-						users: db.collection("users")
-					};
+					theDb = db;
 
 					next(null, theDb);
 				}

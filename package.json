@@ -1,12 +1,12 @@
 {
   "name": "losrios-api",
   "version": "0.1.0",
-	"description": "An API for accessing structured Los Rios Community College class data",
+  "description": "An API for accessing structured Los Rios Community College class data",
   "main": "app.js",
-	"private": true,
-	"engines": {
-		"node": "0.10.x"
-	},
+  "private": true,
+  "engines": {
+    "node": "0.10.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/jasonody/losrios-api",
   "dependencies": {
     "cheerio": "^0.19.0",
+    "mongodb": "^2.0.27",
     "restify": "^3.0.1",
     "unirest": "^0.4.0"
   }
